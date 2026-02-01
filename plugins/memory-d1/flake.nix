@@ -9,24 +9,24 @@
       pkgs = import nixpkgs { inherit system; };
       node = pkgs.nodejs_22 or pkgs.nodejs;
       pkg = pkgs.stdenvNoCC.mkDerivation {
-        pname = "memory-d1-vec";
+        pname = "memory-d1";
         version = "0.1.0";
         src = ./.;
         installPhase = ''
-          mkdir -p "$out/lib/memory-d1-vec" "$out/bin"
-          cp -r index.mjs openclaw.plugin.json README.md "$out/lib/memory-d1-vec/"
+          mkdir -p "$out/lib/memory-d1" "$out/bin"
+          cp -r index.mjs openclaw.plugin.json README.md "$out/lib/memory-d1/"
 
-          cat > "$out/bin/memory-d1-vec" <<'EOF'
+          cat > "$out/bin/memory-d1" <<'EOF'
           #!${pkgs.runtimeShell}
-          exec ${node}/bin/node "$out/lib/memory-d1-vec/index.mjs" "$@"
+          exec ${node}/bin/node "$out/lib/memory-d1/index.mjs" "$@"
           EOF
-          chmod +x "$out/bin/memory-d1-vec"
+          chmod +x "$out/bin/memory-d1"
         '';
       };
     in {
       packages.${system}.default = pkg;
       openclawPlugin = {
-        name = "memory-d1-vec";
+        name = "memory-d1";
         skills = [];
         packages = [ pkg ];
         needs = {

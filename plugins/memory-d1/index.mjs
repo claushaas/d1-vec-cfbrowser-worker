@@ -1,4 +1,3 @@
-import { Type } from "@sinclair/typebox";
 import { createHmac } from "node:crypto";
 
 const MEMORY_CATEGORIES = ["profile", "preference", "project", "telos", "security", "other"];
@@ -61,10 +60,15 @@ const memoryD1Plugin = {
         name: "memory_recall",
         label: "Memory Recall",
         description: "Search long-term memories stored in D1 + Vectorize.",
-        parameters: Type.Object({
-          query: Type.String({ description: "Search query" }),
-          limit: Type.Optional(Type.Number({ description: "Max results (default: 5)" })),
-        }),
+        parameters: {
+          type: "object",
+          additionalProperties: false,
+          properties: {
+            query: { type: "string", description: "Search query" },
+            limit: { type: "number", description: "Max results (default: 5)" }
+          },
+          required: ["query"]
+        },
         async execute(_toolCallId, params) {
           const { query, limit = recallLimit } = params;
           const result = await callMemoryApi("/recall", {
@@ -95,11 +99,16 @@ const memoryD1Plugin = {
         name: "memory_store",
         label: "Memory Store",
         description: "Store important facts in long-term memory.",
-        parameters: Type.Object({
-          text: Type.String({ description: "Information to remember" }),
-          importance: Type.Optional(Type.Number({ description: "Importance 0-1 (default: 0.7)" })),
-          category: Type.Optional(Type.String({ description: "Category", enum: MEMORY_CATEGORIES })),
-        }),
+        parameters: {
+          type: "object",
+          additionalProperties: false,
+          properties: {
+            text: { type: "string", description: "Information to remember" },
+            importance: { type: "number", description: "Importance 0-1 (default: 0.7)" },
+            category: { type: "string", description: "Category", enum: MEMORY_CATEGORIES }
+          },
+          required: ["text"]
+        },
         async execute(_toolCallId, params) {
           const { text, importance = 0.7, category = "other" } = params;
           const result = await callMemoryApi("/store", {
@@ -127,10 +136,14 @@ const memoryD1Plugin = {
         name: "memory_forget",
         label: "Memory Forget",
         description: "Delete memories by id or query.",
-        parameters: Type.Object({
-          query: Type.Optional(Type.String({ description: "Search query to find memory" })),
-          memoryId: Type.Optional(Type.String({ description: "Specific memory ID" })),
-        }),
+        parameters: {
+          type: "object",
+          additionalProperties: false,
+          properties: {
+            query: { type: "string", description: "Search query to find memory" },
+            memoryId: { type: "string", description: "Specific memory ID" }
+          }
+        },
         async execute(_toolCallId, params) {
           const { query, memoryId } = params;
           const result = await callMemoryApi("/forget", {

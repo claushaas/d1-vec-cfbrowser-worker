@@ -19,9 +19,7 @@
     "vectorize"
   ],
   "license": "MIT",
-  "dependencies": {
-    "@sinclair/typebox": "^0.34.41"
-  },
+  "dependencies": {},
   "openclaw": {
     "extensions": ["index.mjs"]
   }
