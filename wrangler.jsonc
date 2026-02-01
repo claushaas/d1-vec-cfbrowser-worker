@@ -1,0 +1,26 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "d1-vec-cfbrowser-worker",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-05-06",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "bb_memory_dev",
+      "database_id": "c762cadf-c23f-4393-91a5-62ae06916566"
+    }
+  ],
+  "vectorize": [
+    {
+      "binding": "VECTORIZE",
+      "index_name": "bb_memory_vec_dev"
+    }
+  ],
+  "browser": {
+    "binding": "BROWSER"
+  }
+}

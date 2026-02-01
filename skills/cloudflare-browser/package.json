@@ -1,0 +1,27 @@
+{
+  "name": "cloudflare-browser-skill",
+  "version": "0.1.0",
+  "description": "Cloudflare Browser Rendering CDP helpers for clawdbot/openclawd",
+  "type": "commonjs",
+  "main": "scripts/cdp-client.js",
+  "bin": {
+    "cf-browser-screenshot": "scripts/screenshot.js",
+    "cf-browser-video": "scripts/video.js"
+  },
+  "files": [
+    "SKILL.md",
+    "scripts/"
+  ],
+  "keywords": [
+    "clawdbot",
+    "openclawd",
+    "cloudflare",
+    "browser",
+    "cdp",
+    "automation"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
