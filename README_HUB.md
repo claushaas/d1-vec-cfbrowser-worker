@@ -65,3 +65,5 @@ wrangler secret put MEMORY_API_SECRET
 wrangler secret put CDP_SECRET
 wrangler secret put OPENAI_API_KEY
 ```
+
+Hub metadata: openclaw.hub.json

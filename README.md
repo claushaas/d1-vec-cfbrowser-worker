@@ -81,3 +81,5 @@ CDP_SECRET=...
 ```
 
 See README_HUB.md for hub listing details.
+
+See SECURITY.md for secret handling.

@@ -1,0 +1,34 @@
+{
+  "id": "d1-vec-cfbrowser-worker",
+  "name": "D1 + Vectorize Memory + Cloudflare Browser",
+  "type": "bundle",
+  "version": "0.1.0",
+  "description": "Worker + OpenClaw memory plugin + Cloudflare browser skill in one repo",
+  "components": {
+    "worker": {
+      "path": "./",
+      "routes": [
+        "/memory/store",
+        "/memory/recall",
+        "/memory/forget",
+        "/cdp",
+        "/cdp/json/version",
+        "/cdp/json/list"
+      ]
+    },
+    "plugin": {
+      "id": "memory-d1",
+      "path": "plugins/memory-d1",
+      "manifest": "plugins/memory-d1/openclaw.plugin.json"
+    },
+    "skill": {
+      "id": "cloudflare-browser",
+      "path": "skills/cloudflare-browser",
+      "entry": "skills/cloudflare-browser/SKILL.md"
+    }
+  },
+  "requirements": {
+    "cloudflare": ["workers", "d1", "vectorize", "browser"],
+    "secrets": ["MEMORY_API_SECRET", "CDP_SECRET", "OPENAI_API_KEY"]
+  }
+}
