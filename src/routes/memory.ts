@@ -7,6 +7,7 @@ const memory = new Hono<AppEnv>();
 
 const MAX_CLOCK_SKEW_MS = 5 * 60 * 1000;
 const DEFAULT_EMBEDDING_MODEL = 'text-embedding-3-small';
+const DEFAULT_EMBEDDING_BASE_URL = 'https://api.openai.com/v1';
 
 type MemoryItem = {
   id: string;
@@ -80,17 +81,18 @@ async function verifyRequestAuth(env: AppEnv['Bindings'], req: Request, bodyText
 }
 
 async function embedText(env: AppEnv['Bindings'], text: string): Promise<number[]> {
-  const apiKey = await resolveSecret(env.OPENAI_API_KEY);
-  if (!apiKey) {
-    throw new Error('OPENAI_API_KEY is not configured');
-  }
   const model = env.MEMORY_EMBEDDING_MODEL || DEFAULT_EMBEDDING_MODEL;
-  const response = await fetch('https://api.openai.com/v1/embeddings', {
+  const baseUrl = (env.EMBEDDING_BASE_URL || DEFAULT_EMBEDDING_BASE_URL).replace(/\/$/, '');
+  const apiKey = await resolveSecret(env.EMBEDDING_API_KEY || env.OPENAI_API_KEY);
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  };
+  if (apiKey) {
+    headers.Authorization = `Bearer ${apiKey}`;
+  }
+  const response = await fetch(`${baseUrl}/embeddings`, {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
+    headers,
     body: JSON.stringify({ model, input: text }),
   });
   if (!response.ok) {

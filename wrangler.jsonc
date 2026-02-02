@@ -17,7 +17,7 @@
   "vectorize": [
     {
       "binding": "VECTORIZE",
-      "index_name": "bb_memory_vec_dev"
+      "index_name": "bb_memory_vec_dev_768"
     }
   ],
   "browser": {

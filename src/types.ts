@@ -10,6 +10,8 @@ export interface Env {
   // Memory API config
   MEMORY_API_SECRET?: string;
   MEMORY_EMBEDDING_MODEL?: string;
+  EMBEDDING_BASE_URL?: string;
+  EMBEDDING_API_KEY?: string | SecretsStoreSecret;
 
   // OpenAI key (plain or Secrets Store binding)
   OPENAI_API_KEY?: string | SecretsStoreSecret;

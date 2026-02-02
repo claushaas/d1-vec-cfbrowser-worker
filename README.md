@@ -22,6 +22,8 @@ Set via `wrangler secret put`:
 
 Optional:
 - `MEMORY_EMBEDDING_MODEL` (default: `text-embedding-3-small`)
+- `EMBEDDING_BASE_URL` (default: `https://api.openai.com/v1`)
+- `EMBEDDING_API_KEY` (optional, overrides `OPENAI_API_KEY`)
 
 ## Local dev
 1) Install deps: `npm install`

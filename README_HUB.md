@@ -51,6 +51,13 @@ WORKER_URL=https://<worker>
 CDP_SECRET=...
 ```
 
+Optional memory embedding overrides:
+```
+EMBEDDING_BASE_URL=https://api.openai.com/v1
+EMBEDDING_API_KEY=...
+MEMORY_EMBEDDING_MODEL=text-embedding-3-small
+```
+
 ## Deploy Worker
 ```
 cd d1-vec-cfbrowser-worker
