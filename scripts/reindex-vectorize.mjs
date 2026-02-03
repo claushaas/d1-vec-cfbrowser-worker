@@ -4,9 +4,10 @@ import { writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-const INDEX_NAME = process.env.VECTORIZE_INDEX || "bb_memory_vec_dev_768";
-const EMBED_BASE_URL = (process.env.EMBEDDING_BASE_URL || "https://nomic-embed.claushaas.dev/v1").replace(/\/$/, "");
-const EMBED_MODEL = process.env.MEMORY_EMBEDDING_MODEL || "nomic-ai_nomic-embed-text-v1.5-GGUF_nomic-embed-text-v1.5.Q4_K_M.gguf";
+const INDEX_NAME = process.env.VECTORIZE_INDEX || "bb_memory_vec_dev_1024";
+const EMBED_BASE_URL = (process.env.EMBEDDING_BASE_URL || "https://openrouter.ai/api/v1").replace(/\/$/, "");
+const EMBED_MODEL = process.env.MEMORY_EMBEDDING_MODEL || "baai/bge-m3";
+const EMBED_API_KEY = process.env.EMBEDDING_API_KEY || process.env.OPENAI_API_KEY;
 const PAGE_SIZE = Number(process.env.PAGE_SIZE || 256);
 const EMBED_BATCH = Number(process.env.EMBED_BATCH || 64);
 
@@ -21,9 +22,13 @@ function d1Query(sql) {
 }
 
 async function embedTexts(texts) {
+  const headers = { "Content-Type": "application/json" };
+  if (EMBED_API_KEY) {
+    headers.Authorization = `Bearer ${EMBED_API_KEY}`;
+  }
   const res = await fetch(`${EMBED_BASE_URL}/embeddings`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers,
     body: JSON.stringify({ model: EMBED_MODEL, input: texts }),
   });
   if (res.ok) {

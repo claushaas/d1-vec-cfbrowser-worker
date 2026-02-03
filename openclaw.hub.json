@@ -29,6 +29,6 @@
   },
   "requirements": {
     "cloudflare": ["workers", "d1", "vectorize", "browser"],
-    "secrets": ["MEMORY_API_SECRET", "CDP_SECRET", "OPENAI_API_KEY"]
+    "secrets": ["MEMORY_API_SECRET", "CDP_SECRET", "EMBEDDING_API_KEY"]
   }
 }

@@ -3,7 +3,9 @@
   "name": "d1-vec-cfbrowser-worker",
   "main": "src/index.ts",
   "compatibility_date": "2025-05-06",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "observability": {
     "enabled": true
   },
@@ -17,7 +19,7 @@
   "vectorize": [
     {
       "binding": "VECTORIZE",
-      "index_name": "bb_memory_vec_dev_768"
+      "index_name": "bb_memory_vec_dev_1024"
     }
   ],
   "browser": {

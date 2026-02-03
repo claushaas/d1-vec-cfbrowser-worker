@@ -18,12 +18,12 @@ Worker + OpenClaw plugin/skill bundle:
 Set via `wrangler secret put`:
 - `MEMORY_API_SECRET` (HMAC auth for memory routes)
 - `CDP_SECRET` (auth for /cdp websocket)
-- `OPENAI_API_KEY` (used for embeddings)
+- `EMBEDDING_API_KEY` (used for embeddings via OpenRouter)
 
 Optional:
-- `MEMORY_EMBEDDING_MODEL` (default: `text-embedding-3-small`)
-- `EMBEDDING_BASE_URL` (default: `https://api.openai.com/v1`)
-- `EMBEDDING_API_KEY` (optional, overrides `OPENAI_API_KEY`)
+- `MEMORY_EMBEDDING_MODEL` (default: `baai/bge-m3`)
+- `EMBEDDING_BASE_URL` (default: `https://openrouter.ai/api/v1`)
+- `OPENAI_API_KEY` (still supported as fallback)
 
 ## Local dev
 1) Install deps: `npm install`

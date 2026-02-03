@@ -6,8 +6,8 @@ import { resolveSecret } from '../secrets';
 const memory = new Hono<AppEnv>();
 
 const MAX_CLOCK_SKEW_MS = 5 * 60 * 1000;
-const DEFAULT_EMBEDDING_MODEL = 'text-embedding-3-small';
-const DEFAULT_EMBEDDING_BASE_URL = 'https://api.openai.com/v1';
+const DEFAULT_EMBEDDING_MODEL = 'baai/bge-m3';
+const DEFAULT_EMBEDDING_BASE_URL = 'https://openrouter.ai/api/v1';
 
 type MemoryItem = {
   id: string;
@@ -103,6 +103,9 @@ async function embedText(env: AppEnv['Bindings'], text: string): Promise<number[
   const embedding = data?.data?.[0]?.embedding;
   if (!embedding) {
     throw new Error('Embedding response missing data');
+  }
+  if (model === 'baai/bge-m3' && embedding.length !== 1024) {
+    throw new Error(`Embedding dimension mismatch: expected 1024, got ${embedding.length}`);
   }
   return embedding;
 }

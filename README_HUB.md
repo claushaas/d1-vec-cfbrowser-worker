@@ -53,9 +53,9 @@ CDP_SECRET=...
 
 Optional memory embedding overrides:
 ```
-EMBEDDING_BASE_URL=https://api.openai.com/v1
+EMBEDDING_BASE_URL=https://openrouter.ai/api/v1
 EMBEDDING_API_KEY=...
-MEMORY_EMBEDDING_MODEL=text-embedding-3-small
+MEMORY_EMBEDDING_MODEL=baai/bge-m3
 ```
 
 ## Deploy Worker
@@ -70,7 +70,7 @@ wrangler deploy
 ```
 wrangler secret put MEMORY_API_SECRET
 wrangler secret put CDP_SECRET
-wrangler secret put OPENAI_API_KEY
+wrangler secret put EMBEDDING_API_KEY
 ```
 
 Hub metadata: openclaw.hub.json
