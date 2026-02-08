@@ -21,8 +21,5 @@
       "binding": "VECTORIZE",
       "index_name": "bb_memory_vec_dev_1024"
     }
-  ],
-  "browser": {
-    "binding": "BROWSER"
-  }
+  ]
 }
