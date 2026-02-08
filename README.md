@@ -1,24 +1,20 @@
 # d1-vec-cfbrowser-worker
 
-![OpenClaw](https://img.shields.io/badge/OpenClaw-plugin%20%2B%20skill-brightgreen)
+![OpenClaw](https://img.shields.io/badge/OpenClaw-compatible-brightgreen)
 ![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-f38020)
 
-Worker + OpenClaw plugin/skill bundle:
+Cloudflare Worker that exposes a long-term memory API backed by D1 + Vectorize:
 - Worker exposes Memory API backed by D1 + Vectorize (`/memory/store`, `/memory/recall`, `/memory/forget`)
-- Worker exposes Cloudflare Browser Rendering CDP shim (`/cdp`)
-- OpenClaw memory plugin: `plugins/memory-d1`
-- Cloudflare browser skill: `skills/cloudflare-browser`
+- OpenClaw memory plugin lives in a separate repo (install via `npm install`): `openclaw-plugin-memory-d1`
 
 ## Required bindings (wrangler.jsonc)
 - D1: `DB`
 - Vectorize: `VECTORIZE`
-- Browser Rendering: `BROWSER`
 
 ## Required secrets
 Set via `wrangler secret put`:
 - `MEMORY_API_SECRET` (HMAC auth for memory routes)
-- `CDP_SECRET` (auth for /cdp websocket)
-- `EMBEDDING_API_KEY` (used for embeddings via OpenRouter)
+- `EMBEDDING_API_KEY` (used for embeddings via OpenRouter), or set `OPENAI_API_KEY` instead
 
 Optional:
 - `MEMORY_EMBEDDING_MODEL` (default: `baai/bge-m3`)
@@ -41,10 +37,11 @@ wrangler d1 migrations apply DB
 
 ## OpenClaw integration
 
-Plugin + skill live inside this repo:
+Install the OpenClaw memory plugin (separate repo), then point it at this Worker:
 
-- Memory plugin: `plugins/memory-d1`
-- Cloudflare browser skill: `skills/cloudflare-browser`
+```bash
+npm install git+ssh://git@github.com/<your-user>/openclaw-plugin-memory-d1.git
+```
 
 OpenClaw config example:
 
@@ -53,7 +50,7 @@ OpenClaw config example:
   "plugins": {
     "load": {
       "paths": [
-        "/path/to/d1-vec-cfbrowser-worker/plugins/memory-d1"
+        "/path/to/node_modules/memory-d1"
       ]
     },
     "slots": {
@@ -73,13 +70,6 @@ OpenClaw config example:
     }
   }
 }
-```
-
-Cloudflare browser skill env vars:
-
-```
-WORKER_URL=https://<worker>
-CDP_SECRET=...
 ```
 
 See README_HUB.md for hub listing details.
